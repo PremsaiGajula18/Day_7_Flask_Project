@@ -1,0 +1,260 @@
+/* Custom styling matching the exact classroom Tea Shop Simulator layout */
+
+body {
+  background-color: #f3f5f4;
+  color: #2b3b3a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.app-header {
+  background-color: #154546;
+  color: #ffffff;
+  padding: 2.2rem 1rem 1.8rem;
+  border-bottom: 1px solid #0f3637;
+}
+
+.header-badge {
+  color: #7dd3fc;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.header-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.header-subtitle {
+  color: #c7dbda;
+  font-size: 0.95rem;
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+}
+
+/* Predict Card */
+.predict-card {
+  background-color: #eaf5ee;
+  border: 1px solid #d4ebd9;
+  border-radius: 10px;
+  padding: 1.4rem 1.6rem;
+}
+
+.predict-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #17423c;
+  margin-bottom: 0.25rem;
+}
+
+.predict-subtitle {
+  font-size: 0.9rem;
+  color: #436660;
+  margin-bottom: 0.8rem;
+}
+
+.btn-demo {
+  background-color: #ffffff;
+  border: 1px solid #c8dfd1;
+  color: #1c453f;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-demo:hover {
+  background-color: #dff0e5;
+  border-color: #b0d4be;
+  color: #0e302b;
+}
+
+.predict-caption {
+  font-size: 0.78rem;
+  color: #5d7e79;
+  margin: 0;
+}
+
+/* Custom Cards */
+.custom-card, .state-container-card, .teaching-card {
+  background-color: #ffffff;
+  border: 1px solid #e1e7e4;
+  border-radius: 10px;
+}
+
+.card-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #154546;
+  margin-bottom: 1rem;
+}
+
+/* Form Styles */
+.form-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #2c4443;
+  margin-bottom: 0.35rem;
+}
+
+.form-control, .form-select {
+  border-color: #d1ded9;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #1d5f60;
+  box-shadow: 0 0 0 0.2rem rgba(21, 69, 70, 0.15);
+}
+
+.btn-teal {
+  background-color: #184e4f;
+  border-color: #184e4f;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.5rem 1.3rem;
+  border-radius: 6px;
+  font-size: 0.92rem;
+}
+
+.btn-teal:hover {
+  background-color: #133f40;
+  border-color: #133f40;
+  color: #ffffff;
+}
+
+/* Activity Log */
+.activity-log {
+  background-color: #fafcfb;
+  border: 1px solid #e7eeeb;
+  border-radius: 6px;
+  padding: 0.85rem;
+  min-height: 220px;
+  max-height: 260px;
+  overflow-y: auto;
+  font-size: 0.82rem;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.4rem;
+}
+
+.log-entry {
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: 1px solid #f0f4f2;
+  word-break: break-word;
+}
+
+.log-entry.info {
+  border-left: 3px solid #0284c7;
+}
+
+.log-entry.success {
+  border-left: 3px solid #16a34a;
+}
+
+.log-entry.error {
+  border-left: 3px solid #dc2626;
+}
+
+.log-time {
+  color: #64748b;
+  font-family: monospace;
+  margin-right: 0.4rem;
+}
+
+/* Order Buckets */
+.state-heading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1b3837;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #edf2ef;
+}
+
+.badge-count {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #5b716f;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 180px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.empty-state {
+  color: #8c9d9a;
+  font-size: 0.88rem;
+  text-align: center;
+  padding: 2rem 0;
+  margin: 0;
+}
+
+.order-card {
+  background-color: #ffffff;
+  border: 1px solid #e5ebe8;
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.order-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #173837;
+  margin: 0 0 0.2rem 0;
+}
+
+.order-subtitle {
+  font-size: 0.78rem;
+  color: #6a7f7c;
+  margin: 0;
+}
+
+/* Teaching Box */
+.teaching-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #164546;
+}
+
+.teaching-heading {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #183e3d;
+  margin-bottom: 0.3rem;
+}
+
+.teaching-text {
+  font-size: 0.82rem;
+  color: #566d6a;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.code-highlight {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+}

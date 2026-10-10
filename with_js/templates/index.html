@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tea Shop Order Simulator</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Top Hero Header -->
+  <header class="app-header">
+    <div class="container-xl">
+      <div class="header-badge">FLASK + JAVASCRIPT CLASSROOM KEY</div>
+      <h1 class="header-title">☕ Tea Shop Order Simulator</h1>
+      <p class="header-subtitle">Take another order while earlier tea is being prepared.</p>
+    </div>
+  </header>
+
+  <main class="container-xl my-4">
+
+    <!-- Predict Before You Click Card -->
+    <section class="predict-card mb-4">
+      <h2 class="predict-title">Predict before you click</h2>
+      <p class="predict-subtitle">Place a 6-second order, then a 2-second order. Which tea will be ready first?</p>
+      <div class="demo-buttons d-flex flex-wrap gap-2 my-3">
+        <button id="btn-broken-return" class="btn btn-demo">1 · Run broken return</button>
+        <button id="btn-callback" class="btn btn-demo">2 · Run callback</button>
+        <button id="btn-promise" class="btn btn-demo">3 · Run Promise .then()</button>
+      </div>
+      <p class="predict-caption">The three demonstration buttons use local timers. Customer orders below are saved through Flask.</p>
+    </section>
+
+    <!-- Top Two Columns: Place Order & Activity Log -->
+    <div class="row g-4 mb-4">
+      <!-- Left Column: Place an Order -->
+      <div class="col-lg-5">
+        <div class="card h-100 shadow-sm custom-card">
+          <div class="card-body p-4">
+            <h3 class="card-heading">Place an order</h3>
+            
+            <form id="order-form" novalidate>
+              <div class="mb-3">
+                <label for="customer_name" class="form-label">Customer name</label>
+                <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="e.g. Anu" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="tea_type" class="form-label">Tea type</label>
+                <select id="tea_type" name="tea_type" class="form-select">
+                  <option value="Regular tea" selected>Regular tea</option>
+                  <option value="Ginger tea">Ginger tea</option>
+                  <option value="Green tea">Green tea</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="prep_time" class="form-label">Preparation time</label>
+                <select id="prep_time" name="prep_time" class="form-select">
+                  <option value="2" selected>2 seconds</option>
+                  <option value="4">4 seconds</option>
+                  <option value="6">6 seconds</option>
+                  <option value="20">20 seconds</option>
+                </select>
+              </div>
+
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="simulate_failure" name="simulate_failure">
+                <label class="form-check-label" for="simulate_failure">
+                  Simulate failure (ingredients unavailable)
+                </label>
+              </div>
+
+              <div id="form-error" class="alert alert-danger d-none py-2 mb-3" role="alert"></div>
+
+              <button type="submit" id="submit-order-btn" class="btn btn-teal">
+                Place order
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Activity Log -->
+      <div class="col-lg-7">
+        <div class="card h-100 shadow-sm custom-card">
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h3 class="card-heading">Activity log</h3>
+                <p class="text-secondary small mb-2">Watch what happens now and what happens later.</p>
+              </div>
+              <button id="clear-log-btn" class="btn btn-outline-secondary btn-sm">Clear log</button>
+            </div>
+
+            <div id="activity-log" class="activity-log flex-grow-1">
+              <!-- Log messages will append here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three Columns: Order State Buckets -->
+    <div class="row g-4 mb-4">
+      <!-- Preparing Column -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm state-container-card">
+          <div class="card-body p-3">
+            <h4 class="state-heading">
+              <span>⏳ Preparing</span>
+              <span id="preparing-count" class="badge-count">0</span>
+            </h4>
+            <div id="preparing-list" class="orders-list">
+              <p class="empty-state">No orders</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ready Column -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm state-container-card">
+          <div class="card-body p-3">
+            <h4 class="state-heading">
+              <span>✅ Ready</span>
+              <span id="ready-count" class="badge-count">0</span>
+            </h4>
+            <div id="ready-list" class="orders-list">
+              <p class="empty-state">No orders</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Failed Column -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm state-container-card">
+          <div class="card-body p-3">
+            <h4 class="state-heading">
+              <span>⚠️ Failed</span>
+              <span id="failed-count" class="badge-count">0</span>
+            </h4>
+            <div id="failed-list" class="orders-list">
+              <p class="empty-state">No orders</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teaching Insights Box -->
+    <section class="card shadow-sm teaching-card">
+      <div class="card-body p-4">
+        <h4 class="teaching-title mb-3">What to point out while teaching</h4>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <h5 class="teaching-heading">Broken return</h5>
+            <p class="teaching-text">The outer function finishes before its timer callback runs. Its immediate return value is undefined.</p>
+          </div>
+          <div class="col-md-3">
+            <h5 class="teaching-heading">Callback</h5>
+            <p class="teaching-text">Pass a function now. The timer calls it later with the prepared tea.</p>
+          </div>
+          <div class="col-md-3">
+            <h5 class="teaching-heading">Promise</h5>
+            <p class="teaching-text"><code class="code-highlight">prepareTea(order)</code> immediately returns a Promise. It settles when the order becomes ready or fails.</p>
+          </div>
+          <div class="col-md-3">
+            <h5 class="teaching-heading">Async / await</h5>
+            <p class="teaching-text"><code class="code-highlight">await prepareTea(order)</code> pauses only that order's async function. Other orders can be accepted.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
